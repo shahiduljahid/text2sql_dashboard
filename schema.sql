@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS enrollments (
     enrollment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER NOT NULL,
     course_id INTEGER NOT NULL,
+    academic_year INTEGER,
     enrollment_date DATE NOT NULL DEFAULT CURRENT_DATE,
     drop_date DATE,
     grade TEXT CHECK(grade IN ('A', 'B', 'C', 'D', 'F', 'I', 'W')),

@@ -14,9 +14,13 @@ def check_database():
     """Check if database exists and is populated."""
     db_path = "student_management.db"
     if not os.path.exists(db_path):
-        print(f"ERROR: Database file '{db_path}' not found!")
-        print("Please run: ./setup_database.sh")
-        return False
+        print(f"Database file '{db_path}' not found. Initializing a fresh database...")
+        try:
+            from init_database import create_database
+            create_database()
+        except Exception as e:
+            print(f"ERROR: Failed to initialize database: {e}")
+            return False
 
     # Check if database has data
     import sqlite3
@@ -81,19 +85,22 @@ def main():
 
     check_env()
 
+    port = int(os.getenv("PORT", "8000"))
+    reload_enabled = os.getenv("UVICORN_RELOAD", "false").lower() == "true"
+
     print("\nStarting server...")
     print("API Documentation:")
-    print("  - Swagger UI: http://localhost:8000/docs")
-    print("  - ReDoc: http://localhost:8000/redoc")
-    print("  - Health check: http://localhost:8000/health")
+    print(f"  - Swagger UI: http://localhost:{port}/docs")
+    print(f"  - ReDoc: http://localhost:{port}/redoc")
+    print(f"  - Health check: http://localhost:{port}/health")
     print("\nPress Ctrl+C to stop the server.\n")
 
     # Start server
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",
-        port=8000,
-        reload=True,
+        port=port,
+        reload=reload_enabled,
         log_level="info"
     )
 
