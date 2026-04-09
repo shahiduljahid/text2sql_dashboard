@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments and local env files
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Local databases and test data
+
+*.sqlite
+*.sqlite3
+
+# Large local model artifacts
+spider1_qlora_latest
+hub/
+transformers/
+
+# Generated evaluation and test artifacts
+eval/generated_qa_*.jsonl
+eval/predictions_*.jsonl
+eval/metrics_*.json
+
+# Tool/editor noise
+.DS_Store
+*.log
