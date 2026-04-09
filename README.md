@@ -30,7 +30,7 @@ Optional:
 ### 3. Deploy
 
 Railway will:
-- Install dependencies from `requirements-minimal.txt`
+- Install dependencies from `requirements.txt`
 - Start the app with `python run.py`
 - Health check `GET /health`
 
@@ -39,3 +39,9 @@ Railway will:
 - App binds to `0.0.0.0:$PORT` automatically.
 - If `student_management.db` is missing on first boot, the app initializes it automatically.
 - Railway filesystem is ephemeral. For persistent data, attach a Railway volume or switch to a managed database.
+
+### Local model extras
+
+If you want to run local model inference (instead of Modal) in development, install:
+
+- `pip install -r requirements-local.txt`

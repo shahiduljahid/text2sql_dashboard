@@ -6,10 +6,14 @@ import inspect
 import os
 import re
 import httpx
-import torch
 from typing import Optional, Dict, Any
 from app.config import settings
 from app.models import SQLQuery, QueryType, SchemaMetadata
+
+try:
+    import torch
+except Exception:
+    torch = None
 
 
 class LLMService:
@@ -77,6 +81,12 @@ class LLMService:
     def _load_local_model(self):
         """Load the local fine-tuned model."""
         try:
+            if torch is None:
+                raise RuntimeError(
+                    "Local provider requires torch/transformers dependencies. "
+                    "Install local extras or switch LLM_PROVIDER to modal/openai/anthropic."
+                )
+
             from transformers import AutoModelForCausalLM, AutoTokenizer
             from peft import PeftModel, LoraConfig
 
