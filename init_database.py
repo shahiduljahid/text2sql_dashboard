@@ -5,6 +5,7 @@ Creates SQLite database with schema and sample data.
 """
 import sqlite3
 import os
+import calendar
 from datetime import date, timedelta
 import random
 
@@ -139,9 +140,8 @@ def insert_sample_data(cursor):
         for month in range(1, 13):  # 12 months of salary
             payment_date = date(2024, month, 15)
             pay_period_start = date(2024, month, 1)
-            pay_period_end = date(2024, month, 30) if month in [4, 6, 9, 11] else date(2024, month, 31)
-            if month == 2:
-                pay_period_end = date(2024, 2, 29)  # Leap year 2024
+            last_day = calendar.monthrange(2024, month)[1]
+            pay_period_end = date(2024, month, last_day)
 
             monthly_salary = base_salaries[i] / 12
             deductions = monthly_salary * 0.15  # 15% deductions
