@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     database_url: str = "student_management.db"
 
     # LLM Settings
-    llm_provider: str = "local"  # "local", "openai", "anthropic", or "modal"
+    llm_provider: str = "openai"  # "local", "openai", "anthropic", or "modal"
     openai_api_key: Optional[str] = None
     anthropic_api_key: Optional[str] = None
     modal_endpoint_url: Optional[str] = None
